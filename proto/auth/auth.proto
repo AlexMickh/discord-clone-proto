@@ -7,7 +7,8 @@ package auth;
 service Auth {
     rpc Register (RegisterRequest) returns (RegisterResponse);
     rpc Login (LoginRequest) returns (LoginResponse);
-    rpc UpdateTokens(UpdateTokensRequest) returns (UpdateTokensResponce);
+    rpc UpdateTokens(UpdateTokensRequest) returns (UpdateTokensResponse);
+    rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
 }
 
 message RegisterRequest {
@@ -19,6 +20,9 @@ message RegisterRequest {
 
 message RegisterResponse {
     string user_id = 1;
+    string username = 2;
+    string email = 3;
+    optional string description = 4;
 }
 
 message LoginRequest {
@@ -35,7 +39,17 @@ message UpdateTokensRequest {
     string refresh_token = 1;
 }
 
-message UpdateTokensResponce {
+message UpdateTokensResponse {
     string access_token = 1;
     string refresh_token = 2;
+}
+
+message VerifyTokenRequest {
+    string access_token = 1;
+}
+
+message VerifyTokenResponse {
+    string user_id = 1;  
+    string email = 2;      
+    string username = 3;       
 }
